@@ -51,10 +51,21 @@ input:disabled {
 }
 
 button {
-	color: #333;
-	background-color: #f4f4f4;
-	outline: none;
+    border: 1px solid #000;
+    background: #eee;
+    color: crimson;
+    text-transform: uppercase;
+    font-size: smaller;
+    font-weight: bold;
+    padding: 10px;
+    transition: all 0.4s ease;
+    cursor: pointer;
 }
+
+    button:hover {
+        background: crimson;
+        color: #fff;
+    }
 
 button:disabled {
 	color: #999;
@@ -65,5 +76,5 @@ button:not(:disabled):active {
 }
 
 button:focus {
-	border-color: #666;
+	border-color: crimson;
 }
