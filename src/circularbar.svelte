@@ -1,5 +1,4 @@
 <script>
-    import { onMount } from 'svelte';
     export let value = 0;
     export let info = '';
     export let color;
@@ -12,10 +11,6 @@
     let rootWidth, rootHeight;             
     let textLarge, textSmall, percent;
     let max = 100;
-
-    onMount(() => {
-        calculate(value, rootWidth, rootHeight);
-    });
 
     $: calculate(value, rootWidth, rootHeight);
 
@@ -62,7 +57,7 @@
             <b bind:this={textLarge}>{newValue}</b><b bind:this={percent}>%</b>
             {#if info}
                 <br>
-                <div bind:this={textSmall}>{@html info}</div>
+                <div bind:this={textSmall}>{info}</div>
             {/if}
         </div>           
     </div>

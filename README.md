@@ -45,6 +45,14 @@ Values above 100 will render as 100 and below 0 will render as 0.
 </style>
 
 ```
+There are a few attributes you can pass to this component:
+
+| Name | Description | Default | Required | Comments |
+|---|---|:---:|:---:|---|
+| color | Defines the progress color | EMPTY | No | Reverts to the CSS variable --def-circlebar-color |
+| info | Provides the text to be shown below the percentage | EMPTY | No | Use \n to break line |
+| thickness | Sets the thickness of the bar in pixels | 0 | No | 0 means auto thickness that will adjust according to the size of the bar |
+| value | A value between 0 and 100 that sets the bar | None | Yes | If the number provided < 0, it will be 0. If it is over 100, it stays at 100 |
 
 There are a few supported CSS variables that can be used from your code to change the bar's colors. They are:
 
