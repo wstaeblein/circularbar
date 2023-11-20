@@ -11,7 +11,7 @@ Values above 100 will render as 100 and below 0 will render as 0.
 ![Example](public/sample.png)
 
 
-[CHECK OUT THE ONLINE DEMO](https://wstaeblein.github.io/circlebar/)
+[CHECK OUT THE ONLINE DEMO](https://wstaeblein.github.io/circularbar/)
 
 ## Usage
 
