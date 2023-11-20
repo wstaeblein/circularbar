@@ -6,7 +6,7 @@ html, body {
 
 body {
     color: #efefef;
-	background-color: #333;
+	background-color: #101016;
 	margin: 0;
 	padding: 5px;
 	box-sizing: border-box;
@@ -14,8 +14,8 @@ body {
 }
 
 :root {
-    --circlebar-text: #aaa;
-    --circlebar-track: #222;
+/*     --circlebar-text: #aaa;
+    --circlebar-track: #222; */
 }
 
 a {
