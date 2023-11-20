@@ -130,6 +130,9 @@ var app = (function () {
             detach(iframe);
         };
     }
+    function toggle_class(element, name, toggle) {
+        element.classList[toggle ? 'add' : 'remove'](name);
+    }
     function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
         const e = document.createEvent('CustomEvent');
         e.initCustomEvent(type, bubbles, cancelable, detail);
@@ -470,8 +473,137 @@ var app = (function () {
 
     const file$1 = "src\\circularbar.svelte";
 
-    // (58:12) {#if info}
+    // (87:12) {#if checkable}
+    function create_if_block_2(ctx) {
+    	let circle_1;
+    	let mounted;
+    	let dispose;
+
+    	const block = {
+    		c: function create() {
+    			circle_1 = svg_element("circle");
+    			attr_dev(circle_1, "cx", /*xaxis*/ ctx[8]);
+    			attr_dev(circle_1, "cy", /*radius*/ ctx[6]);
+    			attr_dev(circle_1, "r", /*radiusBtn*/ ctx[7]);
+    			attr_dev(circle_1, "class", "btn svelte-148ritz");
+    			toggle_class(circle_1, "sel", /*checked*/ ctx[0]);
+    			add_location(circle_1, file$1, 87, 16, 3392);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, circle_1, anchor);
+    			/*circle_1_binding*/ ctx[23](circle_1);
+
+    			if (!mounted) {
+    				dispose = listen_dev(circle_1, "click", /*click_handler*/ ctx[24], false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty[0] & /*xaxis*/ 256) {
+    				attr_dev(circle_1, "cx", /*xaxis*/ ctx[8]);
+    			}
+
+    			if (dirty[0] & /*radius*/ 64) {
+    				attr_dev(circle_1, "cy", /*radius*/ ctx[6]);
+    			}
+
+    			if (dirty[0] & /*radiusBtn*/ 128) {
+    				attr_dev(circle_1, "r", /*radiusBtn*/ ctx[7]);
+    			}
+
+    			if (dirty[0] & /*checked*/ 1) {
+    				toggle_class(circle_1, "sel", /*checked*/ ctx[0]);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(circle_1);
+    			/*circle_1_binding*/ ctx[23](null);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_2.name,
+    		type: "if",
+    		source: "(87:12) {#if checkable}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (91:8) {#if !checkable}
     function create_if_block(ctx) {
+    	let div;
+    	let b0;
+    	let t0;
+    	let b1;
+    	let t2;
+    	let if_block = /*info*/ ctx[1] && create_if_block_1(ctx);
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			b0 = element("b");
+    			t0 = text(/*newValue*/ ctx[5]);
+    			b1 = element("b");
+    			b1.textContent = "%";
+    			t2 = space();
+    			if (if_block) if_block.c();
+    			add_location(b0, file$1, 92, 16, 3656);
+    			add_location(b1, file$1, 92, 55, 3695);
+    			attr_dev(div, "class", "info svelte-148ritz");
+    			add_location(div, file$1, 91, 12, 3620);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, b0);
+    			append_dev(b0, t0);
+    			/*b0_binding*/ ctx[25](b0);
+    			append_dev(div, b1);
+    			/*b1_binding*/ ctx[26](b1);
+    			append_dev(div, t2);
+    			if (if_block) if_block.m(div, null);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty[0] & /*newValue*/ 32) set_data_dev(t0, /*newValue*/ ctx[5]);
+
+    			if (/*info*/ ctx[1]) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+    				} else {
+    					if_block = create_if_block_1(ctx);
+    					if_block.c();
+    					if_block.m(div, null);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			/*b0_binding*/ ctx[25](null);
+    			/*b1_binding*/ ctx[26](null);
+    			if (if_block) if_block.d();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block.name,
+    		type: "if",
+    		source: "(91:8) {#if !checkable}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (94:16) {#if info}
+    function create_if_block_1(ctx) {
     	let br;
     	let t0;
     	let div;
@@ -482,34 +614,34 @@ var app = (function () {
     			br = element("br");
     			t0 = space();
     			div = element("div");
-    			t1 = text(/*info*/ ctx[0]);
-    			add_location(br, file$1, 58, 16, 2316);
-    			attr_dev(div, "class", "svelte-i2jjfw");
-    			add_location(div, file$1, 59, 16, 2338);
+    			t1 = text(/*info*/ ctx[1]);
+    			add_location(br, file$1, 94, 20, 3773);
+    			attr_dev(div, "class", "svelte-148ritz");
+    			add_location(div, file$1, 95, 20, 3799);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, br, anchor);
     			insert_dev(target, t0, anchor);
     			insert_dev(target, div, anchor);
     			append_dev(div, t1);
-    			/*div_binding*/ ctx[17](div);
+    			/*div_binding*/ ctx[27](div);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*info*/ 1) set_data_dev(t1, /*info*/ ctx[0]);
+    			if (dirty[0] & /*info*/ 2) set_data_dev(t1, /*info*/ ctx[1]);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(br);
     			if (detaching) detach_dev(t0);
     			if (detaching) detach_dev(div);
-    			/*div_binding*/ ctx[17](null);
+    			/*div_binding*/ ctx[27](null);
     		}
     	};
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block.name,
+    		id: create_if_block_1.name,
     		type: "if",
-    		source: "(58:12) {#if info}",
+    		source: "(94:16) {#if info}",
     		ctx
     	});
 
@@ -518,135 +650,126 @@ var app = (function () {
 
     function create_fragment$1(ctx) {
     	let section;
-    	let div1;
+    	let div;
     	let svg;
     	let circle0;
     	let circle1;
-    	let t0;
-    	let div0;
-    	let b0;
-    	let t1;
-    	let b1;
-    	let t3;
+    	let t;
     	let section_resize_listener;
-    	let if_block = /*info*/ ctx[0] && create_if_block(ctx);
+    	let if_block0 = /*checkable*/ ctx[3] && create_if_block_2(ctx);
+    	let if_block1 = !/*checkable*/ ctx[3] && create_if_block(ctx);
 
     	const block = {
     		c: function create() {
     			section = element("section");
-    			div1 = element("div");
+    			div = element("div");
     			svg = svg_element("svg");
     			circle0 = svg_element("circle");
     			circle1 = svg_element("circle");
-    			t0 = space();
-    			div0 = element("div");
-    			b0 = element("b");
-    			t1 = text(/*newValue*/ ctx[3]);
-    			b1 = element("b");
-    			b1.textContent = "%";
-    			t3 = space();
-    			if (if_block) if_block.c();
-    			attr_dev(circle0, "cx", /*radius*/ ctx[4]);
-    			attr_dev(circle0, "cy", /*radius*/ ctx[4]);
-    			attr_dev(circle0, "r", /*radius*/ ctx[4]);
-    			attr_dev(circle0, "class", "svelte-i2jjfw");
-    			add_location(circle0, file$1, 52, 12, 1957);
-    			attr_dev(circle1, "cx", /*radius*/ ctx[4]);
-    			attr_dev(circle1, "cy", /*radius*/ ctx[4]);
-    			attr_dev(circle1, "r", /*radius*/ ctx[4]);
-    			attr_dev(circle1, "color", /*color*/ ctx[1]);
-    			attr_dev(circle1, "class", "svelte-i2jjfw");
-    			add_location(circle1, file$1, 53, 12, 2051);
-    			attr_dev(svg, "class", "svelte-i2jjfw");
-    			add_location(svg, file$1, 51, 8, 1938);
-    			add_location(b0, file$1, 56, 12, 2207);
-    			add_location(b1, file$1, 56, 51, 2246);
-    			attr_dev(div0, "class", "info svelte-i2jjfw");
-    			add_location(div0, file$1, 55, 8, 2175);
-    			attr_dev(div1, "class", "container svelte-i2jjfw");
-    			add_location(div1, file$1, 50, 4, 1905);
-    			attr_dev(section, "class", "circle svelte-i2jjfw");
-    			add_render_callback(() => /*section_elementresize_handler*/ ctx[18].call(section));
-    			add_location(section, file$1, 49, 0, 1826);
+    			if (if_block0) if_block0.c();
+    			t = space();
+    			if (if_block1) if_block1.c();
+    			attr_dev(circle0, "cx", /*xaxis*/ ctx[8]);
+    			attr_dev(circle0, "cy", /*radius*/ ctx[6]);
+    			attr_dev(circle0, "r", /*radius*/ ctx[6]);
+    			attr_dev(circle0, "class", "svelte-148ritz");
+    			add_location(circle0, file$1, 84, 12, 3160);
+    			attr_dev(circle1, "cx", /*xaxis*/ ctx[8]);
+    			attr_dev(circle1, "cy", /*radius*/ ctx[6]);
+    			attr_dev(circle1, "r", /*radius*/ ctx[6]);
+    			attr_dev(circle1, "color", /*color*/ ctx[2]);
+    			attr_dev(circle1, "class", "svelte-148ritz");
+    			add_location(circle1, file$1, 85, 12, 3253);
+    			attr_dev(svg, "class", "svelte-148ritz");
+    			add_location(svg, file$1, 83, 8, 3141);
+    			attr_dev(div, "class", "container svelte-148ritz");
+    			add_location(div, file$1, 82, 4, 3108);
+    			attr_dev(section, "class", "circle svelte-148ritz");
+    			add_render_callback(() => /*section_elementresize_handler*/ ctx[28].call(section));
+    			add_location(section, file$1, 81, 0, 3029);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, section, anchor);
-    			append_dev(section, div1);
-    			append_dev(div1, svg);
+    			append_dev(section, div);
+    			append_dev(div, svg);
     			append_dev(svg, circle0);
-    			/*circle0_binding*/ ctx[13](circle0);
+    			/*circle0_binding*/ ctx[21](circle0);
     			append_dev(svg, circle1);
-    			/*circle1_binding*/ ctx[14](circle1);
-    			append_dev(div1, t0);
-    			append_dev(div1, div0);
-    			append_dev(div0, b0);
-    			append_dev(b0, t1);
-    			/*b0_binding*/ ctx[15](b0);
-    			append_dev(div0, b1);
-    			/*b1_binding*/ ctx[16](b1);
-    			append_dev(div0, t3);
-    			if (if_block) if_block.m(div0, null);
-    			section_resize_listener = add_resize_listener(section, /*section_elementresize_handler*/ ctx[18].bind(section));
-    			/*section_binding*/ ctx[19](section);
+    			/*circle1_binding*/ ctx[22](circle1);
+    			if (if_block0) if_block0.m(svg, null);
+    			append_dev(div, t);
+    			if (if_block1) if_block1.m(div, null);
+    			section_resize_listener = add_resize_listener(section, /*section_elementresize_handler*/ ctx[28].bind(section));
+    			/*section_binding*/ ctx[29](section);
     		},
-    		p: function update(ctx, [dirty]) {
-    			if (dirty & /*radius*/ 16) {
-    				attr_dev(circle0, "cx", /*radius*/ ctx[4]);
+    		p: function update(ctx, dirty) {
+    			if (dirty[0] & /*xaxis*/ 256) {
+    				attr_dev(circle0, "cx", /*xaxis*/ ctx[8]);
     			}
 
-    			if (dirty & /*radius*/ 16) {
-    				attr_dev(circle0, "cy", /*radius*/ ctx[4]);
+    			if (dirty[0] & /*radius*/ 64) {
+    				attr_dev(circle0, "cy", /*radius*/ ctx[6]);
     			}
 
-    			if (dirty & /*radius*/ 16) {
-    				attr_dev(circle0, "r", /*radius*/ ctx[4]);
+    			if (dirty[0] & /*radius*/ 64) {
+    				attr_dev(circle0, "r", /*radius*/ ctx[6]);
     			}
 
-    			if (dirty & /*radius*/ 16) {
-    				attr_dev(circle1, "cx", /*radius*/ ctx[4]);
+    			if (dirty[0] & /*xaxis*/ 256) {
+    				attr_dev(circle1, "cx", /*xaxis*/ ctx[8]);
     			}
 
-    			if (dirty & /*radius*/ 16) {
-    				attr_dev(circle1, "cy", /*radius*/ ctx[4]);
+    			if (dirty[0] & /*radius*/ 64) {
+    				attr_dev(circle1, "cy", /*radius*/ ctx[6]);
     			}
 
-    			if (dirty & /*radius*/ 16) {
-    				attr_dev(circle1, "r", /*radius*/ ctx[4]);
+    			if (dirty[0] & /*radius*/ 64) {
+    				attr_dev(circle1, "r", /*radius*/ ctx[6]);
     			}
 
-    			if (dirty & /*color*/ 2) {
-    				attr_dev(circle1, "color", /*color*/ ctx[1]);
+    			if (dirty[0] & /*color*/ 4) {
+    				attr_dev(circle1, "color", /*color*/ ctx[2]);
     			}
 
-    			if (dirty & /*newValue*/ 8) set_data_dev(t1, /*newValue*/ ctx[3]);
-
-    			if (/*info*/ ctx[0]) {
-    				if (if_block) {
-    					if_block.p(ctx, dirty);
+    			if (/*checkable*/ ctx[3]) {
+    				if (if_block0) {
+    					if_block0.p(ctx, dirty);
     				} else {
-    					if_block = create_if_block(ctx);
-    					if_block.c();
-    					if_block.m(div0, null);
+    					if_block0 = create_if_block_2(ctx);
+    					if_block0.c();
+    					if_block0.m(svg, null);
     				}
-    			} else if (if_block) {
-    				if_block.d(1);
-    				if_block = null;
+    			} else if (if_block0) {
+    				if_block0.d(1);
+    				if_block0 = null;
+    			}
+
+    			if (!/*checkable*/ ctx[3]) {
+    				if (if_block1) {
+    					if_block1.p(ctx, dirty);
+    				} else {
+    					if_block1 = create_if_block(ctx);
+    					if_block1.c();
+    					if_block1.m(div, null);
+    				}
+    			} else if (if_block1) {
+    				if_block1.d(1);
+    				if_block1 = null;
     			}
     		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(section);
-    			/*circle0_binding*/ ctx[13](null);
-    			/*circle1_binding*/ ctx[14](null);
-    			/*b0_binding*/ ctx[15](null);
-    			/*b1_binding*/ ctx[16](null);
-    			if (if_block) if_block.d();
+    			/*circle0_binding*/ ctx[21](null);
+    			/*circle1_binding*/ ctx[22](null);
+    			if (if_block0) if_block0.d();
+    			if (if_block1) if_block1.d();
     			section_resize_listener();
-    			/*section_binding*/ ctx[19](null);
+    			/*section_binding*/ ctx[29](null);
     		}
     	};
 
@@ -667,47 +790,85 @@ var app = (function () {
     	let { value = 0 } = $$props;
     	let { info = '' } = $$props;
     	let { color } = $$props;
-    	let { thickness = 0 } = $$props;
+    	let { trackColor } = $$props;
+    	let { textColor } = $$props;
+    	let { thickness = '5%' } = $$props;
+    	let { checkable = false } = $$props;
+    	let { checked = false } = $$props;
+    	let { decimals = false } = $$props;
     	let newValue; // Value already validated
-    	let radius, side;
-    	let circle, hidCircle;
+    	let radius, radiusBtn, xaxis, side;
+    	let circle, hidCircle, btnCircle;
     	let rootEle;
     	let rootWidth, rootHeight;
     	let textLarge, textSmall, percent;
     	let max = 100;
+    	let discRadius = 80;
 
     	function calculate() {
-    		$$invalidate(3, newValue = (value > max ? max : value < 0 ? 0 : value) || 0);
+    		$$invalidate(5, newValue = (value > max ? max : value < 0 ? 0 : value) || 0);
 
-    		if (circle) {
-    			let border = !thickness ? rootWidth / 20 : +thickness;
+    		if (circle && hidCircle) {
+    			let isPercent = thickness.slice(-1) == '%';
+    			let breadth = parseInt(thickness) || 5;
+    			let border = isPercent ? breadth / 100 * rootWidth : breadth;
 
     			// Discount the stroke thickness on both sides
     			side = rootWidth;
 
-    			$$invalidate(4, radius = (side - border * 2) / 2);
+    			$$invalidate(6, radius = (side - border * 2) / 2);
+    			$$invalidate(7, radiusBtn = (radius - border) * (discRadius / 100));
+    			$$invalidate(8, xaxis = radius);
 
+    			// Colors
     			if (color) {
     				rootEle.style.setProperty('--def-circlebar-color', color);
     			}
 
+    			if (trackColor) {
+    				rootEle.style.setProperty('--def-circlebar-track', trackColor);
+    			}
+
+    			if (textColor) {
+    				rootEle.style.setProperty('--def-circlebar-text', textColor);
+    			}
+
+    			// Bar graph
     			let dashValue = Math.round(2 * Math.PI * radius);
-    			$$invalidate(5, circle.style.strokeDashoffset = dashValue, circle);
-    			$$invalidate(5, circle.style.strokeDasharray = dashValue, circle);
-    			$$invalidate(5, circle.style.strokeWidth = border, circle);
-    			$$invalidate(5, circle.style.transform = `translate(${border}px, ${border}px)`, circle);
-    			$$invalidate(6, hidCircle.style.strokeWidth = border, hidCircle);
-    			$$invalidate(6, hidCircle.style.transform = `translate(${border}px, ${border}px)`, hidCircle);
+
+    			$$invalidate(9, circle.style.strokeDashoffset = dashValue, circle);
+    			$$invalidate(9, circle.style.strokeDasharray = dashValue, circle);
+    			$$invalidate(9, circle.style.strokeWidth = border, circle);
+    			$$invalidate(9, circle.style.transform = `translate(${border}px, ${border}px)`, circle);
+    			$$invalidate(10, hidCircle.style.strokeWidth = border, hidCircle);
+    			$$invalidate(10, hidCircle.style.transform = `translate(${border}px, ${border}px)`, hidCircle);
+    			$$invalidate(10, hidCircle.style.transform = `translate(${border}px, ${border}px)`, hidCircle);
+
+    			// Position toggle button
+    			if (checkable) {
+    				$$invalidate(11, btnCircle.style.transform = `translate(${border}px, ${border}px)`, btnCircle);
+    			}
+
+    			// Decimals
+    			if (decimals) {
+    				$$invalidate(5, newValue = Math.round((newValue + Number.EPSILON) * 100) / 100);
+    			} else {
+    				$$invalidate(5, newValue = Math.round(newValue));
+    			}
 
     			// Value for dashoffset
-    			$$invalidate(5, circle.style.strokeDashoffset = dashValue - dashValue * newValue / 100, circle);
+    			$$invalidate(9, circle.style.strokeDashoffset = dashValue - dashValue * newValue / 100, circle);
 
     			// Font sizes
-    			$$invalidate(8, textLarge.style.fontSize = Math.max(radius / 2, 12) + 'px', textLarge);
+    			if (!checkable) {
+    				$$invalidate(13, textLarge.style.fontSize = Math.max(radius / 2, 12) + 'px', textLarge);
 
-    			$$invalidate(9, textSmall.style.fontSize = Math.max(radius / 6, 6) + 'px', textSmall);
-    			$$invalidate(9, textSmall.style.width = side * 0.7 + 'px', textSmall);
-    			$$invalidate(10, percent.style.fontSize = Math.max(radius / 6, 10) + 'px', percent);
+    				if (info) {
+    					$$invalidate(14, textSmall.style.fontSize = Math.max(radius / 6, 6) + 'px', textSmall);
+    				}
+
+    				$$invalidate(15, percent.style.fontSize = Math.max(radius / 6, 10) + 'px', percent);
+    			}
     		}
     	}
 
@@ -715,9 +876,27 @@ var app = (function () {
     		if (color === undefined && !('color' in $$props || $$self.$$.bound[$$self.$$.props['color']])) {
     			console.warn("<Circularbar> was created without expected prop 'color'");
     		}
+
+    		if (trackColor === undefined && !('trackColor' in $$props || $$self.$$.bound[$$self.$$.props['trackColor']])) {
+    			console.warn("<Circularbar> was created without expected prop 'trackColor'");
+    		}
+
+    		if (textColor === undefined && !('textColor' in $$props || $$self.$$.bound[$$self.$$.props['textColor']])) {
+    			console.warn("<Circularbar> was created without expected prop 'textColor'");
+    		}
     	});
 
-    	const writable_props = ['value', 'info', 'color', 'thickness'];
+    	const writable_props = [
+    		'value',
+    		'info',
+    		'color',
+    		'trackColor',
+    		'textColor',
+    		'thickness',
+    		'checkable',
+    		'checked',
+    		'decimals'
+    	];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Circularbar> was created with unknown prop '${key}'`);
@@ -726,67 +905,89 @@ var app = (function () {
     	function circle0_binding($$value) {
     		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
     			hidCircle = $$value;
-    			$$invalidate(6, hidCircle);
+    			$$invalidate(10, hidCircle);
     		});
     	}
 
     	function circle1_binding($$value) {
     		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
     			circle = $$value;
-    			$$invalidate(5, circle);
+    			$$invalidate(9, circle);
     		});
     	}
+
+    	function circle_1_binding($$value) {
+    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+    			btnCircle = $$value;
+    			$$invalidate(11, btnCircle);
+    		});
+    	}
+
+    	const click_handler = () => $$invalidate(0, checked = !checked);
 
     	function b0_binding($$value) {
     		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
     			textLarge = $$value;
-    			$$invalidate(8, textLarge);
+    			$$invalidate(13, textLarge);
     		});
     	}
 
     	function b1_binding($$value) {
     		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
     			percent = $$value;
-    			$$invalidate(10, percent);
+    			$$invalidate(15, percent);
     		});
     	}
 
     	function div_binding($$value) {
     		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
     			textSmall = $$value;
-    			$$invalidate(9, textSmall);
+    			$$invalidate(14, textSmall);
     		});
     	}
 
     	function section_elementresize_handler() {
     		rootWidth = this.clientWidth;
-    		$$invalidate(2, rootWidth);
+    		$$invalidate(4, rootWidth);
     	}
 
     	function section_binding($$value) {
     		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
     			rootEle = $$value;
-    			$$invalidate(7, rootEle);
+    			$$invalidate(12, rootEle);
     		});
     	}
 
     	$$self.$$set = $$props => {
-    		if ('value' in $$props) $$invalidate(11, value = $$props.value);
-    		if ('info' in $$props) $$invalidate(0, info = $$props.info);
-    		if ('color' in $$props) $$invalidate(1, color = $$props.color);
-    		if ('thickness' in $$props) $$invalidate(12, thickness = $$props.thickness);
+    		if ('value' in $$props) $$invalidate(16, value = $$props.value);
+    		if ('info' in $$props) $$invalidate(1, info = $$props.info);
+    		if ('color' in $$props) $$invalidate(2, color = $$props.color);
+    		if ('trackColor' in $$props) $$invalidate(17, trackColor = $$props.trackColor);
+    		if ('textColor' in $$props) $$invalidate(18, textColor = $$props.textColor);
+    		if ('thickness' in $$props) $$invalidate(19, thickness = $$props.thickness);
+    		if ('checkable' in $$props) $$invalidate(3, checkable = $$props.checkable);
+    		if ('checked' in $$props) $$invalidate(0, checked = $$props.checked);
+    		if ('decimals' in $$props) $$invalidate(20, decimals = $$props.decimals);
     	};
 
     	$$self.$capture_state = () => ({
     		value,
     		info,
     		color,
+    		trackColor,
+    		textColor,
     		thickness,
+    		checkable,
+    		checked,
+    		decimals,
     		newValue,
     		radius,
+    		radiusBtn,
+    		xaxis,
     		side,
     		circle,
     		hidCircle,
+    		btnCircle,
     		rootEle,
     		rootWidth,
     		rootHeight,
@@ -794,26 +995,36 @@ var app = (function () {
     		textSmall,
     		percent,
     		max,
+    		discRadius,
     		calculate
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('value' in $$props) $$invalidate(11, value = $$props.value);
-    		if ('info' in $$props) $$invalidate(0, info = $$props.info);
-    		if ('color' in $$props) $$invalidate(1, color = $$props.color);
-    		if ('thickness' in $$props) $$invalidate(12, thickness = $$props.thickness);
-    		if ('newValue' in $$props) $$invalidate(3, newValue = $$props.newValue);
-    		if ('radius' in $$props) $$invalidate(4, radius = $$props.radius);
+    		if ('value' in $$props) $$invalidate(16, value = $$props.value);
+    		if ('info' in $$props) $$invalidate(1, info = $$props.info);
+    		if ('color' in $$props) $$invalidate(2, color = $$props.color);
+    		if ('trackColor' in $$props) $$invalidate(17, trackColor = $$props.trackColor);
+    		if ('textColor' in $$props) $$invalidate(18, textColor = $$props.textColor);
+    		if ('thickness' in $$props) $$invalidate(19, thickness = $$props.thickness);
+    		if ('checkable' in $$props) $$invalidate(3, checkable = $$props.checkable);
+    		if ('checked' in $$props) $$invalidate(0, checked = $$props.checked);
+    		if ('decimals' in $$props) $$invalidate(20, decimals = $$props.decimals);
+    		if ('newValue' in $$props) $$invalidate(5, newValue = $$props.newValue);
+    		if ('radius' in $$props) $$invalidate(6, radius = $$props.radius);
+    		if ('radiusBtn' in $$props) $$invalidate(7, radiusBtn = $$props.radiusBtn);
+    		if ('xaxis' in $$props) $$invalidate(8, xaxis = $$props.xaxis);
     		if ('side' in $$props) side = $$props.side;
-    		if ('circle' in $$props) $$invalidate(5, circle = $$props.circle);
-    		if ('hidCircle' in $$props) $$invalidate(6, hidCircle = $$props.hidCircle);
-    		if ('rootEle' in $$props) $$invalidate(7, rootEle = $$props.rootEle);
-    		if ('rootWidth' in $$props) $$invalidate(2, rootWidth = $$props.rootWidth);
-    		if ('rootHeight' in $$props) $$invalidate(21, rootHeight = $$props.rootHeight);
-    		if ('textLarge' in $$props) $$invalidate(8, textLarge = $$props.textLarge);
-    		if ('textSmall' in $$props) $$invalidate(9, textSmall = $$props.textSmall);
-    		if ('percent' in $$props) $$invalidate(10, percent = $$props.percent);
+    		if ('circle' in $$props) $$invalidate(9, circle = $$props.circle);
+    		if ('hidCircle' in $$props) $$invalidate(10, hidCircle = $$props.hidCircle);
+    		if ('btnCircle' in $$props) $$invalidate(11, btnCircle = $$props.btnCircle);
+    		if ('rootEle' in $$props) $$invalidate(12, rootEle = $$props.rootEle);
+    		if ('rootWidth' in $$props) $$invalidate(4, rootWidth = $$props.rootWidth);
+    		if ('rootHeight' in $$props) $$invalidate(31, rootHeight = $$props.rootHeight);
+    		if ('textLarge' in $$props) $$invalidate(13, textLarge = $$props.textLarge);
+    		if ('textSmall' in $$props) $$invalidate(14, textSmall = $$props.textSmall);
+    		if ('percent' in $$props) $$invalidate(15, percent = $$props.percent);
     		if ('max' in $$props) max = $$props.max;
+    		if ('discRadius' in $$props) discRadius = $$props.discRadius;
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -821,27 +1032,37 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*value, rootWidth*/ 2052) {
+    		if ($$self.$$.dirty[0] & /*value, rootWidth*/ 65552) {
     			calculate();
     		}
     	};
 
     	return [
+    		checked,
     		info,
     		color,
+    		checkable,
     		rootWidth,
     		newValue,
     		radius,
+    		radiusBtn,
+    		xaxis,
     		circle,
     		hidCircle,
+    		btnCircle,
     		rootEle,
     		textLarge,
     		textSmall,
     		percent,
     		value,
+    		trackColor,
+    		textColor,
     		thickness,
+    		decimals,
     		circle0_binding,
     		circle1_binding,
+    		circle_1_binding,
+    		click_handler,
     		b0_binding,
     		b1_binding,
     		div_binding,
@@ -854,12 +1075,26 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance$1, create_fragment$1, safe_not_equal, {
-    			value: 11,
-    			info: 0,
-    			color: 1,
-    			thickness: 12
-    		});
+    		init(
+    			this,
+    			options,
+    			instance$1,
+    			create_fragment$1,
+    			safe_not_equal,
+    			{
+    				value: 16,
+    				info: 1,
+    				color: 2,
+    				trackColor: 17,
+    				textColor: 18,
+    				thickness: 19,
+    				checkable: 3,
+    				checked: 0,
+    				decimals: 20
+    			},
+    			null,
+    			[-1, -1]
+    		);
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -893,11 +1128,51 @@ var app = (function () {
     		throw new Error("<Circularbar>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
+    	get trackColor() {
+    		throw new Error("<Circularbar>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set trackColor(value) {
+    		throw new Error("<Circularbar>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get textColor() {
+    		throw new Error("<Circularbar>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set textColor(value) {
+    		throw new Error("<Circularbar>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
     	get thickness() {
     		throw new Error("<Circularbar>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
     	set thickness(value) {
+    		throw new Error("<Circularbar>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get checkable() {
+    		throw new Error("<Circularbar>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set checkable(value) {
+    		throw new Error("<Circularbar>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get checked() {
+    		throw new Error("<Circularbar>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set checked(value) {
+    		throw new Error("<Circularbar>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get decimals() {
+    		throw new Error("<Circularbar>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set decimals(value) {
     		throw new Error("<Circularbar>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
@@ -912,40 +1187,62 @@ var app = (function () {
     	let p0;
     	let t3;
     	let br0;
-    	let br1;
-    	let br2;
     	let t4;
-    	let div2;
-    	let div0;
+    	let div6;
+    	let div1;
+    	let dfn0;
+    	let t6;
     	let circularbar0;
     	let updating_value;
-    	let t5;
-    	let p1;
-    	let button;
     	let t7;
-    	let div1;
+    	let div0;
+    	let button;
+    	let t9;
+    	let div3;
+    	let dfn1;
+    	let t11;
     	let circularbar1;
     	let updating_value_1;
-    	let t8;
-    	let p2;
-    	let input;
-    	let t9;
-    	let aside;
-    	let br3;
-    	let t10;
-    	let p3;
     	let t12;
-    	let br4;
-    	let br5;
+    	let div2;
+    	let input0;
+    	let t13;
+    	let div5;
+    	let dfn2;
+    	let t15;
+    	let circularbar2;
+    	let updating_value_2;
+    	let updating_checked;
+    	let t16;
+    	let div4;
+    	let input1;
+    	let t17;
+    	let aside;
+    	let br1;
+    	let t18;
+    	let div7;
+    	let b;
+    	let t19;
+    	let t20_value = (/*v3Checked*/ ctx[3] ? '' : ' not') + "";
+    	let t20;
+    	let t21;
+    	let t22;
+    	let p1;
+    	let t24;
+    	let br2;
+    	let br3;
     	let current;
     	let mounted;
     	let dispose;
 
     	function circularbar0_value_binding(value) {
-    		/*circularbar0_value_binding*/ ctx[3](value);
+    		/*circularbar0_value_binding*/ ctx[5](value);
     	}
 
-    	let circularbar0_props = { info: 'Click below\nfor value' };
+    	let circularbar0_props = {
+    		decimals: true,
+    		info: 'Click below\nfor value'
+    	};
 
     	if (/*value*/ ctx[0] !== void 0) {
     		circularbar0_props.value = /*value*/ ctx[0];
@@ -959,12 +1256,13 @@ var app = (function () {
     	binding_callbacks.push(() => bind(circularbar0, 'value', circularbar0_value_binding, /*value*/ ctx[0]));
 
     	function circularbar1_value_binding(value) {
-    		/*circularbar1_value_binding*/ ctx[4](value);
+    		/*circularbar1_value_binding*/ ctx[6](value);
     	}
 
     	let circularbar1_props = {
     		info: "Enter value below",
-    		color: "#1cda81"
+    		color: "#1cda81",
+    		thickness: "10%"
     	};
 
     	if (/*value2*/ ctx[1] !== void 0) {
@@ -978,72 +1276,134 @@ var app = (function () {
 
     	binding_callbacks.push(() => bind(circularbar1, 'value', circularbar1_value_binding, /*value2*/ ctx[1]));
 
+    	function circularbar2_value_binding(value) {
+    		/*circularbar2_value_binding*/ ctx[8](value);
+    	}
+
+    	function circularbar2_checked_binding(value) {
+    		/*circularbar2_checked_binding*/ ctx[9](value);
+    	}
+
+    	let circularbar2_props = {
+    		checkable: true,
+    		discRadius: 90,
+    		color: "dodgerblue",
+    		thickness: "15%"
+    	};
+
+    	if (/*value3*/ ctx[2] !== void 0) {
+    		circularbar2_props.value = /*value3*/ ctx[2];
+    	}
+
+    	if (/*v3Checked*/ ctx[3] !== void 0) {
+    		circularbar2_props.checked = /*v3Checked*/ ctx[3];
+    	}
+
+    	circularbar2 = new Circularbar({
+    			props: circularbar2_props,
+    			$$inline: true
+    		});
+
+    	binding_callbacks.push(() => bind(circularbar2, 'value', circularbar2_value_binding, /*value3*/ ctx[2]));
+    	binding_callbacks.push(() => bind(circularbar2, 'checked', circularbar2_checked_binding, /*v3Checked*/ ctx[3]));
+
     	const block = {
     		c: function create() {
     			main = element("main");
     			h1 = element("h1");
-    			h1.textContent = "Circle Bar";
+    			h1.textContent = "Circular Bar";
     			t1 = space();
     			p0 = element("p");
     			p0.textContent = "A Svelte component that emulates a circular percent based progress bar";
     			t3 = space();
     			br0 = element("br");
-    			br1 = element("br");
-    			br2 = element("br");
     			t4 = space();
-    			div2 = element("div");
-    			div0 = element("div");
+    			div6 = element("div");
+    			div1 = element("div");
+    			dfn0 = element("dfn");
+    			dfn0.textContent = "1";
+    			t6 = space();
     			create_component(circularbar0.$$.fragment);
-    			t5 = space();
-    			p1 = element("p");
+    			t7 = space();
+    			div0 = element("div");
     			button = element("button");
     			button.textContent = "Generate";
-    			t7 = space();
-    			div1 = element("div");
-    			create_component(circularbar1.$$.fragment);
-    			t8 = space();
-    			p2 = element("p");
-    			input = element("input");
     			t9 = space();
-    			aside = element("aside");
-    			br3 = element("br");
-    			t10 = space();
-    			p3 = element("p");
-    			p3.textContent = "Change the viewport size to see how the bars adapt";
+    			div3 = element("div");
+    			dfn1 = element("dfn");
+    			dfn1.textContent = "2";
+    			t11 = space();
+    			create_component(circularbar1.$$.fragment);
     			t12 = space();
-    			br4 = element("br");
-    			br5 = element("br");
-    			attr_dev(h1, "class", "svelte-3g9b2c");
-    			add_location(h1, file, 13, 1, 274);
-    			attr_dev(p0, "class", "svelte-3g9b2c");
-    			add_location(p0, file, 14, 1, 295);
-    			add_location(br0, file, 15, 4, 377);
-    			add_location(br1, file, 15, 8, 381);
-    			add_location(br2, file, 15, 12, 385);
-    			add_location(button, file, 21, 16, 532);
-    			attr_dev(p1, "class", "svelte-3g9b2c");
-    			add_location(p1, file, 20, 12, 512);
-    			attr_dev(div0, "class", "svelte-3g9b2c");
-    			add_location(div0, file, 18, 8, 409);
-    			attr_dev(input, "type", "number");
-    			set_style(input, "background", "transparent");
-    			set_style(input, "width", "80px");
-    			set_style(input, "color", "#eee");
-    			add_location(input, file, 27, 16, 765);
-    			attr_dev(p2, "class", "svelte-3g9b2c");
-    			add_location(p2, file, 26, 12, 745);
-    			attr_dev(div1, "class", "svelte-3g9b2c");
-    			add_location(div1, file, 24, 8, 626);
-    			attr_dev(div2, "class", "svelte-3g9b2c");
-    			add_location(div2, file, 17, 4, 395);
-    			add_location(br3, file, 32, 8, 930);
-    			attr_dev(p3, "class", "svelte-3g9b2c");
-    			add_location(p3, file, 33, 8, 943);
-    			add_location(aside, file, 31, 4, 914);
-    			add_location(br4, file, 35, 4, 1018);
-    			add_location(br5, file, 35, 8, 1022);
-    			attr_dev(main, "class", "svelte-3g9b2c");
-    			add_location(main, file, 12, 0, 266);
+    			div2 = element("div");
+    			input0 = element("input");
+    			t13 = space();
+    			div5 = element("div");
+    			dfn2 = element("dfn");
+    			dfn2.textContent = "3";
+    			t15 = space();
+    			create_component(circularbar2.$$.fragment);
+    			t16 = space();
+    			div4 = element("div");
+    			input1 = element("input");
+    			t17 = space();
+    			aside = element("aside");
+    			br1 = element("br");
+    			t18 = space();
+    			div7 = element("div");
+    			b = element("b");
+    			t19 = text("Item 3 is");
+    			t20 = text(t20_value);
+    			t21 = text(" checked");
+    			t22 = space();
+    			p1 = element("p");
+    			p1.textContent = "Change the viewport size to see how the bars adapt";
+    			t24 = space();
+    			br2 = element("br");
+    			br3 = element("br");
+    			attr_dev(h1, "class", "svelte-1qd4eoa");
+    			add_location(h1, file, 14, 1, 278);
+    			add_location(p0, file, 15, 1, 301);
+    			add_location(br0, file, 16, 4, 383);
+    			attr_dev(dfn0, "class", "svelte-1qd4eoa");
+    			add_location(dfn0, file, 20, 12, 425);
+    			add_location(button, file, 23, 16, 585);
+    			attr_dev(div0, "class", "cmd svelte-1qd4eoa");
+    			add_location(div0, file, 22, 12, 551);
+    			attr_dev(div1, "class", "svelte-1qd4eoa");
+    			add_location(div1, file, 19, 8, 407);
+    			attr_dev(dfn1, "class", "svelte-1qd4eoa");
+    			add_location(dfn1, file, 27, 12, 699);
+    			attr_dev(input0, "type", "number");
+    			attr_dev(input0, "class", "svelte-1qd4eoa");
+    			add_location(input0, file, 30, 16, 875);
+    			attr_dev(div2, "class", "cmd svelte-1qd4eoa");
+    			add_location(div2, file, 29, 12, 841);
+    			attr_dev(div3, "class", "svelte-1qd4eoa");
+    			add_location(div3, file, 26, 8, 681);
+    			attr_dev(dfn2, "class", "svelte-1qd4eoa");
+    			add_location(dfn2, file, 34, 12, 979);
+    			attr_dev(input1, "type", "range");
+    			attr_dev(input1, "class", "svelte-1qd4eoa");
+    			add_location(input1, file, 37, 16, 1195);
+    			attr_dev(div4, "class", "cmd svelte-1qd4eoa");
+    			add_location(div4, file, 36, 12, 1161);
+    			attr_dev(div5, "class", "svelte-1qd4eoa");
+    			add_location(div5, file, 33, 8, 961);
+    			attr_dev(div6, "class", "svelte-1qd4eoa");
+    			add_location(div6, file, 18, 4, 393);
+    			add_location(br1, file, 42, 8, 1303);
+    			add_location(b, file, 43, 72, 1380);
+    			set_style(div7, "justify-content", "center");
+    			set_style(div7, "text-transform", "uppercase");
+    			attr_dev(div7, "class", "svelte-1qd4eoa");
+    			add_location(div7, file, 43, 8, 1316);
+    			add_location(p1, file, 44, 8, 1444);
+    			add_location(aside, file, 41, 4, 1287);
+    			add_location(br2, file, 46, 4, 1519);
+    			add_location(br3, file, 46, 8, 1523);
+    			attr_dev(main, "class", "svelte-1qd4eoa");
+    			add_location(main, file, 13, 0, 270);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1055,36 +1415,55 @@ var app = (function () {
     			append_dev(main, p0);
     			append_dev(main, t3);
     			append_dev(main, br0);
-    			append_dev(main, br1);
-    			append_dev(main, br2);
     			append_dev(main, t4);
-    			append_dev(main, div2);
-    			append_dev(div2, div0);
-    			mount_component(circularbar0, div0, null);
-    			append_dev(div0, t5);
-    			append_dev(div0, p1);
-    			append_dev(p1, button);
-    			append_dev(div2, t7);
-    			append_dev(div2, div1);
-    			mount_component(circularbar1, div1, null);
-    			append_dev(div1, t8);
-    			append_dev(div1, p2);
-    			append_dev(p2, input);
-    			set_input_value(input, /*value2*/ ctx[1]);
-    			append_dev(main, t9);
+    			append_dev(main, div6);
+    			append_dev(div6, div1);
+    			append_dev(div1, dfn0);
+    			append_dev(div1, t6);
+    			mount_component(circularbar0, div1, null);
+    			append_dev(div1, t7);
+    			append_dev(div1, div0);
+    			append_dev(div0, button);
+    			append_dev(div6, t9);
+    			append_dev(div6, div3);
+    			append_dev(div3, dfn1);
+    			append_dev(div3, t11);
+    			mount_component(circularbar1, div3, null);
+    			append_dev(div3, t12);
+    			append_dev(div3, div2);
+    			append_dev(div2, input0);
+    			set_input_value(input0, /*value2*/ ctx[1]);
+    			append_dev(div6, t13);
+    			append_dev(div6, div5);
+    			append_dev(div5, dfn2);
+    			append_dev(div5, t15);
+    			mount_component(circularbar2, div5, null);
+    			append_dev(div5, t16);
+    			append_dev(div5, div4);
+    			append_dev(div4, input1);
+    			set_input_value(input1, /*value3*/ ctx[2]);
+    			append_dev(main, t17);
     			append_dev(main, aside);
-    			append_dev(aside, br3);
-    			append_dev(aside, t10);
-    			append_dev(aside, p3);
-    			append_dev(main, t12);
-    			append_dev(main, br4);
-    			append_dev(main, br5);
+    			append_dev(aside, br1);
+    			append_dev(aside, t18);
+    			append_dev(aside, div7);
+    			append_dev(div7, b);
+    			append_dev(b, t19);
+    			append_dev(b, t20);
+    			append_dev(b, t21);
+    			append_dev(aside, t22);
+    			append_dev(aside, p1);
+    			append_dev(main, t24);
+    			append_dev(main, br2);
+    			append_dev(main, br3);
     			current = true;
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(button, "click", /*spin*/ ctx[2], false, false, false),
-    					listen_dev(input, "input", /*input_input_handler*/ ctx[5])
+    					listen_dev(button, "click", /*spin*/ ctx[4], false, false, false),
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[7]),
+    					listen_dev(input1, "change", /*input1_change_input_handler*/ ctx[10]),
+    					listen_dev(input1, "input", /*input1_change_input_handler*/ ctx[10])
     				];
 
     				mounted = true;
@@ -1110,25 +1489,50 @@ var app = (function () {
 
     			circularbar1.$set(circularbar1_changes);
 
-    			if (dirty & /*value2*/ 2 && to_number(input.value) !== /*value2*/ ctx[1]) {
-    				set_input_value(input, /*value2*/ ctx[1]);
+    			if (dirty & /*value2*/ 2 && to_number(input0.value) !== /*value2*/ ctx[1]) {
+    				set_input_value(input0, /*value2*/ ctx[1]);
     			}
+
+    			const circularbar2_changes = {};
+
+    			if (!updating_value_2 && dirty & /*value3*/ 4) {
+    				updating_value_2 = true;
+    				circularbar2_changes.value = /*value3*/ ctx[2];
+    				add_flush_callback(() => updating_value_2 = false);
+    			}
+
+    			if (!updating_checked && dirty & /*v3Checked*/ 8) {
+    				updating_checked = true;
+    				circularbar2_changes.checked = /*v3Checked*/ ctx[3];
+    				add_flush_callback(() => updating_checked = false);
+    			}
+
+    			circularbar2.$set(circularbar2_changes);
+
+    			if (dirty & /*value3*/ 4) {
+    				set_input_value(input1, /*value3*/ ctx[2]);
+    			}
+
+    			if ((!current || dirty & /*v3Checked*/ 8) && t20_value !== (t20_value = (/*v3Checked*/ ctx[3] ? '' : ' not') + "")) set_data_dev(t20, t20_value);
     		},
     		i: function intro(local) {
     			if (current) return;
     			transition_in(circularbar0.$$.fragment, local);
     			transition_in(circularbar1.$$.fragment, local);
+    			transition_in(circularbar2.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
     			transition_out(circularbar0.$$.fragment, local);
     			transition_out(circularbar1.$$.fragment, local);
+    			transition_out(circularbar2.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(main);
     			destroy_component(circularbar0);
     			destroy_component(circularbar1);
+    			destroy_component(circularbar2);
     			mounted = false;
     			run_all(dispose);
     		}
@@ -1148,13 +1552,15 @@ var app = (function () {
     function instance($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('App', slots, []);
-    	let value = 51;
-    	let value2 = 13;
+    	let value = 51.53;
+    	let value2 = 32;
+    	let value3 = 77;
+    	let v3Checked = false;
     	let range = 400;
 
     	function spin() {
-    		$$invalidate(0, value = Math.floor(Math.random() * 100) + 1);
-    	} //value2 = Math.floor(Math.random() * 100) + 1;
+    		$$invalidate(0, value = Math.floor(Math.random() * 100) + Math.random());
+    	}
 
     	const writable_props = [];
 
@@ -1172,16 +1578,41 @@ var app = (function () {
     		$$invalidate(1, value2);
     	}
 
-    	function input_input_handler() {
+    	function input0_input_handler() {
     		value2 = to_number(this.value);
     		$$invalidate(1, value2);
     	}
 
-    	$$self.$capture_state = () => ({ Circularbar, value, value2, range, spin });
+    	function circularbar2_value_binding(value) {
+    		value3 = value;
+    		$$invalidate(2, value3);
+    	}
+
+    	function circularbar2_checked_binding(value) {
+    		v3Checked = value;
+    		$$invalidate(3, v3Checked);
+    	}
+
+    	function input1_change_input_handler() {
+    		value3 = to_number(this.value);
+    		$$invalidate(2, value3);
+    	}
+
+    	$$self.$capture_state = () => ({
+    		Circularbar,
+    		value,
+    		value2,
+    		value3,
+    		v3Checked,
+    		range,
+    		spin
+    	});
 
     	$$self.$inject_state = $$props => {
     		if ('value' in $$props) $$invalidate(0, value = $$props.value);
     		if ('value2' in $$props) $$invalidate(1, value2 = $$props.value2);
+    		if ('value3' in $$props) $$invalidate(2, value3 = $$props.value3);
+    		if ('v3Checked' in $$props) $$invalidate(3, v3Checked = $$props.v3Checked);
     		if ('range' in $$props) range = $$props.range;
     	};
 
@@ -1192,10 +1623,15 @@ var app = (function () {
     	return [
     		value,
     		value2,
+    		value3,
+    		v3Checked,
     		spin,
     		circularbar0_value_binding,
     		circularbar1_value_binding,
-    		input_input_handler
+    		input0_input_handler,
+    		circularbar2_value_binding,
+    		circularbar2_checked_binding,
+    		input1_change_input_handler
     	];
     }
 
